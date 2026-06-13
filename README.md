@@ -27,7 +27,7 @@ ln -s ~/.local/share/opencode/worktree-development-skills/SKILL.md \
 
 ```bash
 mkdir -p ~/.config/opencode/skills/worktree-development && \
-curl -sL https://raw.githubusercontent.com/Anhydrite/worktree-development-skills/main/SKILL.md \
+curl -sL https://raw.githubusercontent.com/Anhydrite/worktree-development-skills/master/SKILL.md \
   -o ~/.config/opencode/skills/worktree-development/SKILL.md
 ```
 
