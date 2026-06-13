@@ -4,11 +4,11 @@ OpenCode skill that forces every dev task (feature, bugfix, refactor) into an is
 
 ## Install
 
-```bash
-git clone https://github.com/Anhydrite/worktree-development-skills.git /tmp/worktree-development-skills && mkdir -p ~/.config/opencode/skills/worktree-development && cp /tmp/worktree-development-skills/SKILL.md ~/.config/opencode/skills/worktree-development/SKILL.md && rm -rf /tmp/worktree-development-skills
-```
+Clone this repo and copy `SKILL.md` into your OpenCode skills directory at `~/.config/opencode/skills/worktree-development/`. Restart OpenCode. The skill triggers automatically whenever you ask the agent to implement something.
 
-Restart OpenCode. The skill triggers automatically whenever you ask the agent to implement something.
+```bash
+git clone https://github.com/Anhydrite/worktree-development-skills.git /tmp/wt && mkdir -p ~/.config/opencode/skills/worktree-development && cp /tmp/wt/SKILL.md ~/.config/opencode/skills/worktree-development/SKILL.md && rm -rf /tmp/wt
+```
 
 ## What it enforces
 
