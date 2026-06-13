@@ -1,56 +1,27 @@
 # worktree-development
 
-An [OpenCode](https://github.com/sst/opencode) skill that enforces an autonomous git worktree workflow for AI coding agents.
+OpenCode skill that forces every dev task (feature, bugfix, refactor) into an isolated git worktree on a dedicated branch. The agent works autonomously: creates the worktree, writes code, runs tests/lint/build, pushes, opens a PR via `gh`, merges it, and cleans up — all without asking the user for confirmation.
 
-Every development task happens in an isolated git worktree on a dedicated branch. The agent creates the worktree, develops, runs tests/lint/build, creates a PR, and merges — all without asking the user for confirmation.
-
-## Installation
-
-### Option 1 — Copy the skill file
-
-```bash
-# From this repo's root:
-cp SKILL.md ~/.config/opencode/skills/worktree-development/SKILL.md
-```
-
-### Option 2 — Clone and symlink
-
-```bash
-git clone https://github.com/Anhydrite/worktree-development-skills.git ~/.local/share/opencode/worktree-development-skills
-
-mkdir -p ~/.config/opencode/skills/worktree-development
-ln -s ~/.local/share/opencode/worktree-development-skills/SKILL.md \
-      ~/.config/opencode/skills/worktree-development/SKILL.md
-```
-
-### Option 3 — One-liner
+## Install
 
 ```bash
 mkdir -p ~/.config/opencode/skills/worktree-development && \
-curl -sL https://raw.githubusercontent.com/Anhydrite/worktree-development-skills/master/SKILL.md \
+curl -sL https://raw.githubusercontent.com/Anhydrite/worktree-development-skills/main/SKILL.md \
   -o ~/.config/opencode/skills/worktree-development/SKILL.md
 ```
 
-## How It Works
+Restart OpenCode. The skill triggers automatically whenever you ask the agent to implement something.
 
-When you ask OpenCode to implement a feature, fix a bug, or start any development task, this skill activates automatically and enforces:
+## What it enforces
 
-1. **Phase 1 — Verify & Setup**: Detects current git state. Creates a worktree on a new branch if you're on `main`.
-2. **Phase 2 — Develop**: Writes code, runs tests, lint, and build in the worktree. Uses red-test-first.
-3. **Phase 3 — PR & Merge**: Pushes the branch, creates a PR via `gh`, merges it, cleans up the worktree and branch.
+- **One task = one worktree = one branch.** Never work on `main`.
+- **Questions only before Phase 1.** Once work starts, the agent decides alone.
+- **Three gates before merge:** tests, lint, build — all must pass.
+- **Auto-merge via `gh`:** PR created, merged, branch deleted, worktree removed. No user confirmation.
+- **Fallback:** if `gh` is not installed, falls back to local merge.
 
-No user confirmation is asked at any point after Phase 1 begins.
+## Workflow phases
 
-## Configuration
-
-The skill lives at:
-
-```
-~/.config/opencode/skills/worktree-development/SKILL.md
-```
-
-No additional configuration is needed. OpenCode discovers it automatically on next session start.
-
-## License
-
-MIT
+1. **Verify & Setup** — detects git state, creates worktree if on `main`
+2. **Develop** — writes code, runs tests (red-test-first), commits incrementally
+3. **PR & Merge** — pushes branch, opens PR, merges, cleans up
