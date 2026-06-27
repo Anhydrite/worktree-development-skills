@@ -195,7 +195,12 @@ cd .worktrees/<short-name>
 
 - **Gates fail on the worktree** → fix in the worktree, re-verify, then merge.
 - **Conflict on merge** → resolve in the worktree (cherry-pick / rebase),
-  re-verify gates, then merge.
+  re-verify gates, then merge. **CRITICAL: Never delete code that exists in
+  `main` but not in your worktree.** Before resolving any conflict, read the
+  git log to understand WHY that code was added. If the added code is not in
+  your scope, KEEP IT. Your conflict resolution must preserve all recent
+  `main` additions — you only resolve conflicts in YOUR code. If unsure, keep
+  both and let the gates catch issues.
 - **Merge would touch a guarded file (e.g. `.github/workflows`, lockfiles
   shared across features)** → still merge automatically; the next feature
   will deal with any fallout via its own gates.
@@ -207,6 +212,8 @@ cd .worktrees/<short-name>
 - ❌ Ask "should I merge now?" — the answer is yes, execute it.
 - ❌ Stop after committing in the worktree without merging.
 - ❌ Leave the worktree and branch in place after a successful merge.
+- ❌ Delete code from `main` during conflict resolution — even if it seems
+  unrelated. You are not the owner of `main`'s history.
 - ❌ Merge when a gate is red, even by one test.
 - ❌ Push to `main` directly (bypassing the merge commit).
 - ❌ Ask the user any question once Phase 1 has started.
